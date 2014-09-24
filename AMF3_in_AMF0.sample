@@ -1,0 +1,200 @@
+
+manually  decode  the AMF3  in  AMF0  message:
+[
+>>> x
+'\x00\x03\x00\x00\x00\x01\x00\x04null\x00\x04/255\x00\x00\x01/\n\x00\x00\x00\x01\x11\n\x81\x13Oflex.messaging.messages.RemotingMessage\x13operation\rsource\tbody\x13messageId\x13timestamp\x11clientId\x15timeToLive\x17destination\x0fheaders\x06!statisticAllTask\x01\t\x01\x01\x06I595D8F82-7AD2-CE38-EBA6-A1BBF524E1C0\x04\x00\x01\x04\x00\x06\x17taskManager\n\x0b\x01\x15DSEndpoint\x06\x1bmy-graniteamf!DSRequestTimeout\x04\x85\xa3\x00\tDSId\x06I99853A75-B61C-4A43-A16C-DFB5E64B7FEA\x01'
+>>> 
+]
+
+
+documents :
+[
+
+1.
+Adobe Systems Inc. AMF 0 Specification Category: ActionScript Serialization   
+Action Message Format -- AMF 0 
+
+2.
+Adobe Systems Inc. AMF 3 Specification Category: ActionScript Serialization  
+Action Message Format -- AMF 3 
+
+
+]
+
+
+
+b'
+\x00\x03 #version  --------------------------the version number is confused here: it only means : i will use avmplus-object(which means AMF3 format embeded in AMF0)  in  AMF0  
+\x00\x00 #header-count
+\x00\x01 #message-count
+\x00\x04 #target-uri length
+null     #target-uri
+\x00\x04 #response-uri length
+/255     #response-uri
+\x00\x00\x01/ #message-length ## ord('/')= 47 hex(47) 0x2f  0x012f = 303
+# [  ## the below is value-type  
+\n #  -----------------------------------AMF0 value-type   strict-array-type 
+\x00\x00\x00\x01 #  ----length  
+\x11 ----------------value-type : avmplus-object-marker   AMF3 embeded in AMF0 
+\n   ----------------object-marker AMF3 object
+[
+\x81\x13 ------------U29O-traits 1-0000001 0-001-0011  0000001001 = 9  member = 9
+[
+O ----------------class-name U29S-value 0-100111-1   100111 = int('00100111',2) = 39
+flex.messaging.messages.RemotingMessage ---------- UTF8-char * 39
+]
+1.
+[
+\x13 ------------ U29S-value 0-001001-1 001001 = 9 
+operation --------------------------------- UTF8-char * 9
+]
+2.
+[
+\r --------------U29S-value 0-000110-1 000110 = 6 
+source  --------------------------------- UTF8-char * 6
+]
+3.
+[
+\t
+body
+]
+4.
+[
+\x13
+messageId
+]
+5.
+[
+\x13
+timestamp
+]
+6.
+[
+\x11
+clientId
+]
+7.
+[
+\x15
+timeToLive
+]
+8.
+[
+\x17 00010111
+destination
+]
+9.
+[
+\x0f 0-000111-1  7
+headers
+]
+===============================================1
+[
+\x06 -------------string-marker
+]
+[
+!    0-010000-1 010000 = 16
+statisticAllTask
+]
+==================================================2
+[
+\x01  ----------------------null-type
+]
+=======================================================3
+[
+\t ----------------------------------------array-marker
+]
+[
+\x01  ---------------------U29A-value = U29   0-000000-1
+]
+[
+\x01 ---------------------UTF-8-empty
+]
+===========================================================4
+[ 
+\x06-------------string-marker
+] 
+[
+I '0-100100-1   100100 36
+595D8F82-7AD2-CE38-EBA6-A1BBF524E1C0
+]
+===============================================================5
+[
+\x04 -------------------------------------integer-marker
+]
+[
+\x00 --------------------------------------------0
+]
+=================================================================6
+[
+\x01----------------------null-type
+]
+===================================================================7
+[
+\x04-------------------------------------integer-marker
+]
+[
+\x00--------------------------------------------0
+]
+=====================================================================8
+[
+\x06-------------string-marker
+]
+[
+\x17  0-001011-1
+taskManager
+]
+=====================================================================9
+\n ----------------object-marker AMF3 object
+\x0b --------------0-000-1011 U29O-traits  dynamic  obj-ref-index = 0
+[
+\x01 ---------0-000000-1 classname 空串的ClassName就是指这个object的Class就是普通的Object类
+]
+{
+[
+\x15 ---------- 0-001010-1  ----------------UTF-8-vr
+DSEndpoint
+]
+[
+\x06 ------------value-type string-type
+]
+[
+\x1b ---------------0-001101-1
+my-graniteamf
+]
+}
+
+{
+[
+! 16 --------------------------------------UTF-8-vr
+DSRequestTimeout
+]
+[
+\x04 -----------------value-type interg-type
+]
+[
+\x85\xa3\x00 ----------------- 1-0000101 1-0100011 0-0000000   0 0001 01010001 10000000   015180  86400
+]
+}
+
+{
+[
+\t   0-000100-1
+DSId
+]
+[
+\x06
+]
+[
+I '0-100100-1   100100 36
+99853A75-B61C-4A43-A16C-DFB5E64B7FEA
+]
+}
+
+{
+[
+\x01 ----------------------------------dynamic member end
+]
+}
+====================================================================
+# ]
