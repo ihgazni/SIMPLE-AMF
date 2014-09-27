@@ -404,15 +404,22 @@ def get_Array(unhandled_Bytes):
     else:
         array_Dict['count-of-dense'] = interg
         array_Dict['dense'] = {}
-        step = get_Assoc_Value(unhandled_Bytes)
-        unhandled_Bytes = step[0]
-        array_Dict['assoc-value'] = {}
-        array_Dict['assoc-value'] = step[1]
+        empty_Name_Sign = unhandled_Bytes[0]
+        assoc_index = 1
+        while(not(empty_Name_Sign == b'\x01')):
+            step = get_Assoc_Value(unhandled_Bytes)
+            unhandled_Bytes = step[0]
+            array_Dict['assoc-value'] = {}
+            array_Dict['assoc-value'][assoc_index] = step[1]
+            assoc_index = assoc_index + 1
+            empty_Name_Sign = unhandled_Bytes[0]
+        array_Dict['assoc-value']['end'] = empty_Name_Sign
         for i in range(1,array_Dict['count-of-dense']+1):
             step = get_Value_Type(unhandled_Bytes)
             unhandled_Bytes = step[0]
             array_Dict['dense'][i] = step[1]
     return((unhandled_Bytes,array_Dict))
+
 
 
 def get_Assoc_Value(unhandled_Bytes):
