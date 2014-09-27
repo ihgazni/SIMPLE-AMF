@@ -393,6 +393,29 @@ array-type = array-marker U29A-value  (UTF-8-empty | *(assoc-value) UTF-8-empty)
 
 
 def get_Array(unhandled_Bytes):
+    array_Dict = {}
+    step = get_U29(unhandled_Bytes)
+    U29S_raw = step[1]
+    unhandled_Bytes = step[0]
+    interg = U29_to_INT(U29_raw)
+    is_Ref = interg & 1
+    if(is_Ref == 0):
+        array_Dict['ref'] = interg
+    else:
+        array_Dict['count-of-dense'] = interg
+        array_Dict['dense'] = {}
+        step = get_Assoc_Value(unhandled_Bytes)
+        unhandled_Bytes = step[0]
+        array_Dict['assoc-value'] = {}
+        array_Dict['assoc-value'] = step[1]
+        for i in range(1,array_Dict['count-of-dense']+1):
+            step = get_Value_Type(unhandled_Bytes)
+            unhandled_Bytes = step[0]
+            array_Dict['dense'][i] = step[1]
+    return((unhandled_Bytes,array_Dict))
+
+
+def get_Assoc_Value(unhandled_Bytes):
     
 
 
