@@ -1,0 +1,166 @@
+{
+    'version': b'\x00\x03'
+    'head-count': b'\x00\x00'
+    'header-type-Dict': {}
+    'message-count': b'\x00\x01'
+    'message-type-Dict':
+    {
+        1:
+        {
+            'target-uri': {
+                              'len':b'\x00\x04',
+                              'string':b'null'
+                          }
+            'response-uri': {
+                                'len':b'\x00\x02',
+                                'string':b'/8'
+                            }
+            'message-length': b'\x00\x00\x01/'
+            'value-type': {
+                               'marker':b'\n' #the following is amf0 type10  strict-array-type
+                               'value-type-body':
+                               {
+                                    'array-count': b'\x00\x00\x00\x01'
+                                    'value-type-Dict': 
+                                    {   
+                                        1:
+                                        {
+                                            'marker':b'\x11' # the following is amf0 type17 avmplus-object-type , means amf3 embedded in amf0 
+                                            'value-type-body': # the following is amf3 value-type
+                                            {
+                                                'marker': b'\n' # amf3 object
+                                                'value-type-body':
+                                                {
+                                                    'U29O-traits': b'\x81\x13'
+                                                    'class-name':
+                                                    {
+                                                         'len': b'O'
+                                                         'string':b'flex.messaging.messages.RemotingMessage'
+                                                    }
+                                                    'sealed-traits-member-names':
+                                                    {
+                                                        1:{'len':b'\x13','string':b'operation'}
+                                                        2:{'len':b'\r','string':b'source'}
+                                                        3:{'len':b'\t','string':b'body'}
+                                                        4:{'len':b'\x13','string':b'messageId'}
+                                                        5:{'len':b'\x13','string':b'timestamp'}
+                                                        6:{'len':b'\x11','string':b'clientId'}
+                                                        7:{'len':b'\x15','string':b'timeToLive'}
+                                                        8:{'len':b'\x17','string':b'destination'}
+                                                        9:{'len':b'\x0f','string':b'headers'}
+                                                    }
+                                                    'sealed-traits-member-values':
+                                                    {
+                                                        1:{
+                                                                'marker':b'\x06'
+                                                                'value-type-body':{'len':b'!','string':'statisticAllTask'}
+                                                        2:{
+                                                                'marker':b'\x01'
+                                                                'value-type-body':{}
+                                                          }
+                                                        3:{    
+                                                                'marker':b'\t'
+                                                                'value-type-body':
+                                                                                 {
+                                                                                  'count-of-dense-portion':b'\x01'
+                                                                                  'assoc-value-Dict':{ 
+                                                                                                      'end':b'\x01'
+                                                                                                     }
+                                                                                  'dense-Dict':{}
+                                                                                  }
+                                                         }
+                                                        4:{
+                                                              'marker': b'\x06'
+                                                              'value-type-body': 
+                                                                               {
+                                                                                 'len':b'I'
+                                                                                 'string':b'C5EE77C1-7740-B5B6-8D9F-BEE7E9DA59C6'
+                                                                               }
+                                                          }
+                                                        5:{
+                                                              'marker': b'\x04'
+                                                              'value-type-body': b'\x00'
+                                                          }
+                                                        6:{
+                                                                'marker':b'\x01'
+                                                                'value-type-body':{}
+                                                          }
+                                                        7:{
+                                                              'marker': b'\x04'
+                                                              'value-type-body': b'\x00'
+                                                          }
+                                                        8:{
+                                                              'marker': b'\x06'
+                                                              'value-type-body': 
+                                                                               {
+                                                                                 'len':b'\x17'
+                                                                                 'string':b'taskManager'
+                                                                               }
+                                                          }
+                                                        9:{
+                                                              'marker': b'\n'
+                                                              'value-type-body':
+                                                              {
+                                                                    'U29O-traits': b'\x0b'
+                                                                    'class-name':
+                                                                    {
+                                                                         'len': b'\x01'
+                                                                         'string':b'' # empty-string class-name means normal object
+                                                                    }
+                                                                    'sealed-traits-member-names':{}
+                                                                    'sealed-traits-member-values':{}
+                                                                    'dynamic-member-Dict':
+                                                                    {
+                                                                         1:{    
+                                                                                'name':{
+                                                                                           'len': b'\x15'
+                                                                                           'string': b'DSEndpoint'
+                                                                                        }
+                                                                                'value-type':
+                                                                                {
+                                                                                  'marker': b'\x06'
+                                                                                  'value-type-body': 
+                                                                                   {
+                                                                                       'len': b'\x1b'
+                                                                                       'string': b'my-graniteamf'   
+                                                                                   }
+                                                                                }
+                                                                           }
+                                                                         2:{
+                                                                                'name':{
+                                                                                           'len': b'!'
+                                                                                           'string': b'DSRequestTimeout'
+                                                                                        }
+                                                                                'value-type':
+                                                                                {
+                                                                                  'marker': b'\x04'
+                                                                                  'value-type-body': b'\x85\xa3\x00'
+                                                                                }
+                                                                           }
+                                                                         3:{
+                                                                                'name':{
+                                                                                           'len': b'\t'
+                                                                                           'string': b'DSId'
+                                                                                        }
+                                                                                'value-type':
+                                                                                {
+                                                                                  'marker': b'\x06'
+                                                                                  'value-type-body': 
+                                                                                   {
+                                                                                       'len': b'\xI'
+                                                                                       'string': b'99853A75-B61C-4A43-A16C-DFB5E64B7FEA'   
+                                                                                   }
+                                                                                }
+                                                                           }
+                                                                        4: { 'end':b'\x01' }
+                                                                    }
+                                                             }
+                                                         }   
+                                                }
+                                            }
+                                        }
+                                    }
+                               }
+                          }
+        }
+    }
