@@ -229,12 +229,12 @@ def get_U29(unhandled_Bytes):
     i = 0 
     while(i<4):
         if(unhandled_Bytes[i]<128):
-            U29_raw = U29_raw + unhandled_Bytes[i]
+            U29_raw = U29_raw + unhandled_Bytes[i:]
             break
         else:
-            U29_raw = U29_raw + unhandled_Bytes[i]
+            U29_raw = U29_raw + unhandled_Bytes[i:i+1]
         i = i + 1
-    return((unhandled_Bytes[(i+1):unhandled_Bytes[0:(i+1)],))
+    return((unhandled_Bytes[(i+1):],U29_raw))
 
 
 def U29_to_INT(U29_raw):
