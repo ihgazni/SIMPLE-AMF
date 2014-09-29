@@ -3,20 +3,22 @@ def get_unhandled_Bytes(filename):
     return(fd.read())
     fd.close()
 
-filename = '.amf0'
+filename = 'test_18'
 unhandled_Bytes = get_unhandled_Bytes(filename)
 amf_packet = {}
 ######################################################################
 #amf-packet = version header-count *(header-type) message- count *(message-type) 
 ######################################################################
-def get_U16(unhandled_Bytes):
+def amf0_Get_U16(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,U16_raw) = (unhandled_Bytes[2:],unhandled_Bytes[0:2])
     return((unhandled_Bytes,U16_raw))
 
-def U16_to_Int(U16_raw):
-    return(U16_raw[0] * 16 + U16_raw[1])
+def amf0_U16_to_INT(U16_raw):
+    return(struct.unpack('!H',S16_raw)[0])
 
+def amf0_INT_to_U16(INT):
+    return(struct.pack('!H',255))
 ######################################################################
 {
 \x00\x03 ----version       U16  get_U16(unhandled_Bytes)  
@@ -30,11 +32,22 @@ unhandled_Bytes = step[0]
 \x00\x00 ----head-count    U16  get_U16(unhandled_Bytes)   
 }
 #########################################################################
-# header-type = header-name must-understand header-length  value-type 
-def get_U8(unhandled_Bytes):
+# amf0_U8 :
+# An unsigned byte, 8-bits of data, an octet 
+def amf0_Get_U8(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,U8_raw) = (unhandled_Bytes[1:],unhandled_Bytes[0:1])
     return((unhandled_Bytes,U8_raw))
+
+def amf0_U8_to_INT(U8_raw):
+    return(U8_raw[0])
+
+def amf0_INT_to_U8(INT):
+    high = '{0:0>2}'.format(hex(INT).lstrip('0x'))[0:2]
+    high = int(high,16)
+    return(chr(high).encode('latin-1'))
+# header-type = header-name must-understand header-length  value-type 
+
 
 def get_Header_Type(unhandled_Bytes):
     head_Type = {}
@@ -195,13 +208,20 @@ null       * (UTF8-char)
 }
 
 #################################################################
-def get_U32(unhandled_Bytes):
-    handled_Bytes = b''
-    (unhandled_Bytes,U32_Raw) = (unhandled_Bytes[4:],unhandled_Bytes[0:4])
-    return((unhandled_Bytes,U32_Raw))
 
-def U32_to_Int(U32_Raw):
-    return(U16_raw[0] *16*16*16 + U16_raw[1]*16*16 + U16_raw[2]*16 + U16_raw[3])
+# amf0_U32
+# An unsigned 32-bit integer in big endian (network) byte order 
+
+def amf0_Get_U32(unhandled_Bytes):
+    handled_Bytes = b''
+    (unhandled_Bytes,U32_raw) = (unhandled_Bytes[4:],unhandled_Bytes[0:4])
+    return((unhandled_Bytes,U32_raw))
+
+def amf0_U32_to_INT(U32_raw):
+    return(struct.unpack('!I',U32_raw)[0])
+
+def amf0_INT_to_U32(INT):
+    return(struct.pack('!I',INT))
 
 #################################################################
 ---------------message-length  U32 get_U32(unhandled_Bytes)
@@ -213,13 +233,12 @@ amf_packet['message-length'] = step[1]
 unhandled_Bytes = step[0]
 
 ###################################################################
-
-def get_DOUBLE(unhandled_Bytes):
+def amf0_Get_DOUBLE(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,DOUBLE_raw) = (unhandled_Bytes[8:],unhandled_Bytes[0:8])
     return((unhandled_Bytes,DOUBLE_raw))
 
-def DOUBLE_to_Float(DOUBLE_raw):
+def amf0_DOUBLE_to_Float(DOUBLE_raw):
     return(struct.unpack('!d',DOUBLE_raw)[0])
 
 ###################################################################
@@ -393,36 +412,6 @@ array-type = array-marker U29A-value  (UTF-8-empty | *(assoc-value) UTF-8-empty)
 
 
 def get_Array(unhandled_Bytes):
-    array_Dict = {}
-    step = get_U29(unhandled_Bytes)
-    U29S_raw = step[1]
-    unhandled_Bytes = step[0]
-    interg = U29_to_INT(U29_raw)
-    is_Ref = interg & 1
-    if(is_Ref == 0):
-        array_Dict['ref'] = interg
-    else:
-        array_Dict['count-of-dense'] = interg
-        array_Dict['dense'] = {}
-        empty_Name_Sign = unhandled_Bytes[0]
-        assoc_index = 1
-        while(not(empty_Name_Sign == b'\x01')):
-            step = get_Assoc_Value(unhandled_Bytes)
-            unhandled_Bytes = step[0]
-            array_Dict['assoc-value'] = {}
-            array_Dict['assoc-value'][assoc_index] = step[1]
-            assoc_index = assoc_index + 1
-            empty_Name_Sign = unhandled_Bytes[0]
-        array_Dict['assoc-value']['end'] = empty_Name_Sign
-        for i in range(1,array_Dict['count-of-dense']+1):
-            step = get_Value_Type(unhandled_Bytes)
-            unhandled_Bytes = step[0]
-            array_Dict['dense'][i] = step[1]
-    return((unhandled_Bytes,array_Dict))
-
-
-
-def get_Assoc_Value(unhandled_Bytes):
     
 
 
@@ -628,5 +617,5 @@ I
 { =====================================================9
 \n  ---------------object-marker
     \x05 ------0-00001-01 U29O-traits-ref    sent-by-reference    ref index = 1
+    \x01 -----
 }
-\x01 ----- ?????
