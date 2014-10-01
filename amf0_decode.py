@@ -221,7 +221,7 @@ def amf0_Get_LUTF8(unhandled_Bytes):
 # UTF-8-empty = U16 ; 
 # byte-length reported as zero with  ; 
 # no UTF8-char content, i.e. 0x0000 
-amf0_UTF-8-empty = b'\x00\x00'
+amf0_UTF_8_empty = b'\x00\x00'
 
 ##-----------------------------------------------------------------##
 
