@@ -71,7 +71,13 @@ def amf0_Get_DOUBLE(unhandled_Bytes):
 
 def amf0_DOUBLE_to_Float(DOUBLE_raw):
     return(struct.unpack('!d',DOUBLE_raw)[0])
-
+    
+def amf0_Get_Date_Time(DOUBLE_raw)
+    since_epoch = amf0_DOUBLE_to_Float(DOUBLE_raw)
+    date='Wed, 11 Apr 2012 09:37:05 +0800'
+    dd=datetime.datetime.strptime(date,'%a, %d %b %Y %H:%M:%S %z')
+    current_DD = dd.fromtimestamp(since_epoch)
+    return(current_DD.strftime("%Y-%m-%d %H:%M:%S:%f"))
 
 # amf0_KB A kilobyte or 1024 bytes
 amf0_KB = 1024
