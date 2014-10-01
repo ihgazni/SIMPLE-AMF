@@ -217,3 +217,53 @@ def amf0_Get_LUTF8(unhandled_Bytes):
 amf0_UTF-8-empty = b'\x00\x00'
 
 ##-----------------------------------------------------------------##
+
+##-----------------------------------------------------------------##
+# AMF 0 Data Types 
+##-----------------------------------------------------------------##
+
+amf0_Data_Types = {
+    'name-to-marker':{
+        'number-marker':b'\x00',
+        'boolean-marker':b'\x01',
+        'string-marker':b'\x02',
+        'object-marker':b'\x03',  
+        'movieclip-marker':b'\x04',  
+        'null-marker':b'\x05',
+        'undefined-marker':b'\x06',
+        'reference-marker':b'\x07',
+        'ecma-array-marker':b'\x08',
+        'object-end-marker':b'\x09',
+        'strict-array-marker': b'\x0A',
+        'date-marker':b'\x0B',
+        'long-string-marker':b'\x0C',
+        'unsupported-marker' : b'\x0D',
+        'recordset-marker' : b'\x0E',
+        'xml-document-marker' : b'\x0F',
+        'typed-object-marker' : b'\x10',
+        'avmplus-object-marker' : b'\x11'
+    },
+    'marker-to-name': {
+        b'\x00':  'number-marker',
+        b'\x01':  'boolean-marker',
+        b'\x02':  'string-marker',
+        b'\x03':  'object-marker',
+        b'\x04':  'movieclip-marker',
+        b'\x05':  'null-marker',
+        b'\x06':  'undefined-marker',
+        b'\x07':  'reference-marker',
+        b'\x08':  'ecma-array-marker',
+        b'\x09':  'object-end-marker',
+        b'\x0A':  'strict-array-marker',
+        b'\x0B':  'date-marker',
+        b'\x0C':  'long-string-marker',
+        b'\x0D':  'unsupported-marker',
+        b'\x0E':  'recordset-marker',
+        b'\x0F':  'xml-document-marker',
+        b'\x10':  'typed-object-marker',
+        b'\x11':  'avmplus-object-marker'
+    }
+}
+
+# -------------------------------------------------------------------------- #
+
