@@ -138,7 +138,7 @@ def amf3_Get_UTF8_char_Raw(unhandled_Bytes):
 
 def amf3_Get_UTF8_string_Len_Raw(unhandled_Bytes):
     handled_Bytes = b''
-    (unhandled_Bytes,count_Raw) = amf3_Get_U16(unhandled_Bytes)
+    (unhandled_Bytes,count_Raw) = amf3_Get_U16_raw(unhandled_Bytes)
     return((unhandled_Bytes,count_Raw))
 
 def amf3_UTF8_string_Len(UTF8_string_Len_Raw):
@@ -149,14 +149,14 @@ def amf3_Get_UTF8_string_Raw(unhandled_Bytes,UTF8_string_Len_Raw):
     count = amf3_U16_to_INT(UTF8_string_Len_Raw)
     handled_Bytes = b''
     for i in range(1,count+1):
-        (unhandled_Bytes,UTF8_Char_Raw) = amf3_Get_UTF8_char(unhandled_Bytes)
+        (unhandled_Bytes,UTF8_Char_Raw) = amf3_Get_UTF8_char_Raw(unhandled_Bytes)
         handled_Bytes = handled_Bytes + UTF8_Char_Raw
     return((unhandled_Bytes,handled_Bytes))
 
 def amf3_UTF8_String(UTF8_string_Raw):
     return(UTF8_string_Raw.decode('utf-8'))
 
-def amf3_Get_UTF8(unhandled_Bytes):
+def amf3_Get_UTF8_raw(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,count_Raw) = amf3_Get_U16(unhandled_Bytes)
     handled_Bytes = handled_Bytes + count_raw
