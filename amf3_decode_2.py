@@ -60,7 +60,7 @@ def amf3_Get_DOUBLE_raw(unhandled_Bytes):
 def amf3_DOUBLE_to_Float(DOUBLE_raw):
     return(struct.unpack('!d',DOUBLE_raw)[0])
     
-def amf3_Get_Date_Time(DOUBLE_raw)
+def amf3_Get_Date_Time(DOUBLE_raw):
     since_epoch = amf3_DOUBLE_to_Float(DOUBLE_raw)
     date='Wed, 11 Apr 2012 09:37:05 +0800'
     dd=datetime.datetime.strptime(date,'%a, %d %b %Y %H:%M:%S %z')
