@@ -80,7 +80,7 @@ amf3_MB = 1048576
 # UTF8-4 = %xF0 %x90-BF 2(UTF8-tail) | %xF1-F3 3(UTF8-tail) | \
          # %xF4 %x80-8F 2(UTF8-tail) 
 # UTF8-tail = %x80-BF 
-def amf3_Get_UTF8_char(unhandled_Bytes):
+def amf3_Get_UTF8_char_Raw(unhandled_Bytes):
     if(unhandled_Bytes[0] < 128):
         if(unhandled_Bytes[0] < 128):
             unhandled_Bytes = unhandled_Bytes[1:]
