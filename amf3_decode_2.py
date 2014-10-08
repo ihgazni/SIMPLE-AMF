@@ -24,21 +24,21 @@ def amf3_INT_to_U8(INT):
 
 # amf3_U16 : 
 # An unsigned 16-bit integer in big endian (network) byte order 
-def amf3_Get_U16(unhandled_Bytes):
+def amf3_Get_U16_raw(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,U16_raw) = (unhandled_Bytes[2:],unhandled_Bytes[0:2])
     return((unhandled_Bytes,U16_raw))
 
 def amf3_U16_to_INT(U16_raw):
-    return(struct.unpack('!H',S16_raw)[0])
+    return(struct.unpack('!H',U16_raw)[0])
 
 def amf3_INT_to_U16(INT):
-    return(struct.pack('!H',255))
+    return(struct.pack('!H',INT))
 
 # amf3_U32
 # An unsigned 32-bit integer in big endian (network) byte order 
 
-def amf3_Get_U32(unhandled_Bytes):
+def amf3_Get_U32_raw(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,U32_raw) = (unhandled_Bytes[4:],unhandled_Bytes[0:4])
     return((unhandled_Bytes,U32_raw))
@@ -52,7 +52,7 @@ def amf3_INT_to_U32(INT):
 # amf3_DOUBLE :
 # 8 byte IEEE-754 double precision floating point value in network byte order (sign bit in low memory). 
 
-def amf3_Get_DOUBLE(unhandled_Bytes):
+def amf3_Get_DOUBLE_raw(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,DOUBLE_raw) = (unhandled_Bytes[8:],unhandled_Bytes[0:8])
     return((unhandled_Bytes,DOUBLE_raw))
