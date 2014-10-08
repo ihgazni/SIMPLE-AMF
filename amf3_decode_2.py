@@ -2,12 +2,61 @@ import sys
 import os
 import struct
 import re
-import datetime
 
-#################################--common parts--################################################
+##-----------------------------------------------------------------##
+##3.1 AMF 3 Data Types Overview                                    ##
+##-----------------------------------------------------------------##
 
-# amf3_U8 :
-# An unsigned byte, 8-bits of data, an octet 
+amf3_Data_Types = {
+    'name-to-marker':{
+        'undefined-marker':b'\x00',
+        'null-marker':b'\x01',
+        'false-marker':b'\x02',
+        'true-marker':b'\x03',  
+        'integer-marker':b'\x04',  
+        'double-marker':b'\x05',
+        'string-marker':b'\x06',
+        'xml-doc-marker':b'\x07',
+        'date-marker':b'\x08',
+        'array-marker':b'\x09',
+        'object-marker': b'\x0A',
+        'xml-marker':b'\x0B',
+        'byte-array-marker':b'\x0C',
+        'vector-int-marker' : b'\x0D',
+        'vector-uint-marker' : b'\x0E',
+        'vector-double-marker' : b'\x0F',
+        'vector-object-marker' : b'\x10',
+        'dictionary-marker' : b'\x11'
+    },
+    'marker-to-name': {
+        b'\x00':  'undefined-marker',
+        b'\x01':  'null-marker',
+        b'\x02':  'false-marker',
+        b'\x03':  'true-marker',
+        b'\x04':  'integer-marker',
+        b'\x05':  'double-marker',
+        b'\x06':  'string-marker',
+        b'\x07':  'xml-doc-marker',
+        b'\x08':  'date-marker',
+        b'\x09':  'array-marker',
+        b'\x0A':  'object-marker',
+        b'\x0B':  'xml-marker',
+        b'\x0C':  'byte-array-marker',
+        b'\x0D':  'vector-int-marker',
+        b'\x0E':  'vector-uint-marker',
+        b'\x0F':  'vector-double-marker',
+        b'\x10':  'vector-object-marker',
+        b'\x11':  'dictionary-marker'
+    }
+}
+
+##-----------------------------------------------------------------##
+##1.3 Basic Rules                                                  ##
+##-----------------------------------------------------------------##
+
+# 1.3.1 amf3_U8 :
+# An unsigned byte, 8-bits of data, an octet
+# unhandled_Bytes is <class 'bytes'> 
 def amf3_Get_U8_raw(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,U8_raw) = (unhandled_Bytes[1:],unhandled_Bytes[0:1])
@@ -21,8 +70,7 @@ def amf3_INT_to_U8(INT):
     high = int(high,16)
     return(chr(high).encode('latin-1'))
 
-
-# amf3_U16 : 
+# 1.3.2 amf3_U16 : 
 # An unsigned 16-bit integer in big endian (network) byte order 
 def amf3_Get_U16_raw(unhandled_Bytes):
     handled_Bytes = b''
@@ -35,7 +83,7 @@ def amf3_U16_to_INT(U16_raw):
 def amf3_INT_to_U16(INT):
     return(struct.pack('!H',INT))
 
-# amf3_U32
+# 1.3.3 amf3_U32
 # An unsigned 32-bit integer in big endian (network) byte order 
 
 def amf3_Get_U32_raw(unhandled_Bytes):
@@ -49,7 +97,7 @@ def amf3_U32_to_INT(U32_raw):
 def amf3_INT_to_U32(INT):
     return(struct.pack('!I',INT))
 
-# amf3_DOUBLE :
+# 1.3.4 amf3_DOUBLE :
 # 8 byte IEEE-754 double precision floating point value in network byte order (sign bit in low memory). 
 
 def amf3_Get_DOUBLE_raw(unhandled_Bytes):
@@ -67,10 +115,10 @@ def amf3_Get_Date_Time(DOUBLE_raw):
     current_DD = dd.fromtimestamp(since_epoch)
     return(current_DD.strftime("%Y-%m-%d %H:%M:%S:%f"))
 
-# MB = A megabyte or 1048576 bytes.
+# 1.3.5 MB = A megabyte or 1048576 bytes.
 amf3_MB = 1048576
 
-#
+# 1.3.6
 # In ABNF syntax, [RFC3629] describes UTF-8 as follows:   
 # UTF8-char = UTF8-1 | UTF8-2 | UTF8-3 | UTF8-4 
 # UTF8-1 = %x00-7F 
@@ -132,7 +180,7 @@ def amf3_Get_UTF8_char_Raw(unhandled_Bytes):
     else:
         return(None)
 
-# UTF-8 = U16 *(UTF8-char)  
+# 1.3.7 UTF-8 = U16 *(UTF8-char)  
 # A 16-bit byte-length header implies a theoretical maximum of 65,535 bytes \
 # to encode a string in UTF-8 (essentially 64KB).     
 
@@ -167,19 +215,14 @@ def amf3_Get_UTF8_raw(unhandled_Bytes):
     return((unhandled_Bytes,handled_Bytes))
 
 
-
-#################################--common parts--################################################
-
-
-#################################--amf3_only--################################################
-# In ABNF syntax, the variable length unsigned 29-bit integer type is described as follows:
+# 1.3.8 In ABNF syntax, the variable length unsigned 29-bit integer type is described as follows:
 # U29 = U29-1 | U29-2 | U29-3 | U29-4
 # U29-1 = %x00-7F
 # U29-2 = %x80-FF %x00-7F
 # U29-3 = %x80-FF %x80-FF %x00-7F
 # U29-4 = %x80-FF %x80-FF %x80-FF %x00-FF
 
-def amf3_Get_U29(unhandled_Bytes):
+def amf3_Get_U29_raw(unhandled_Bytes):
     U29_raw = b''
     i = 0 
     while(i<4):
@@ -190,7 +233,6 @@ def amf3_Get_U29(unhandled_Bytes):
             U29_raw = U29_raw + unhandled_Bytes[i:i+1]
         i = i + 1
     return((unhandled_Bytes[(i+1):],U29_raw))
-
 
 def amf3_U29_to_INT(U29_raw):
     len = U29_raw.__len__()
@@ -214,9 +256,8 @@ def amf3_U29_to_INT(U29_raw):
     else:
         return(None)
 
-
-def amf3_INT_to_U29(int):
-    bin_Str = bin(int).lstrip('0b')
+def amf3_INT_to_U29(INT):
+    bin_Str = bin(INT).lstrip('0b')
     len = bin_Str.__len__()
     if(len < 8):
         new_Bin_Str = '{0:0>8}'.format(bin_Str[0:7])
@@ -254,26 +295,23 @@ def amf3_INT_to_U29(int):
 # string reference table index (an 
 # integer).
 
-def amf3_Is_U29S_ref(U29):
-    int_Little_Endian = U29[-1]
-    if(int_Little_Endian % 2 == 0):
-        return(amf3_U29_to_INT(U29) // 2)
-    else:
-        return(None)
-
-
 # U29S-value = U29 ; The first (low) bit is a flag with 
 # value 1. The remaining 1 to 28 
 # significant bits are used to encode the 
 # byte-length of the UTF-8 encoded 
 # representation of the string
 
-def amf3_Is_U29S_value(U29):
+def amf3_Decode_U29S(U29_raw):
     int_Little_Endian = U29[-1]
-    if(int_Little_Endian % 2 == 1):
-        return((amf3_U29_to_INT(U29)-1) // 2)
+    if(int_Little_Endian % 2 == 0):
+        U29S = {}
+        U29S['ref'] = amf3_U29_to_INT(U29) // 2
+        U29S['value'] = None
     else:
-        return(None)
+        U29S = {}
+        U29S['ref'] = None
+        U29S['value'] = (amf3_U29_to_INT(U29)-1) // 2
+    return(U29S)
 
 # UTF-8-empty = 0x01  
 # The UTF-8-vr empty string which is 
@@ -282,53 +320,38 @@ def amf3_Is_U29S_value(U29):
 amf3_UTF_8_empty = b'\x01'
 
 # UTF-8-vr = U29S-ref | (U29S-value *(UTF8-char))
+# amf3_UTF8_vr =
+# {
+# 'U29S-raw':
+# 'ref':
+# 'value':
+# 'string-raw':
+# 'string'
+# }
 
-def amf3_Get_UTF8_vr(unhandled_Bytes):
+def amf3_Get_UTF8_vr_Raw(unhandled_Bytes):
     vr = {}
-    step = amf3_Get_U29(unhandled_Bytes)
+    step = amf3_Get_U29_raw(unhandled_Bytes)
     unhandled_Bytes = step[0]
     U29_raw = step[1]
-    s_Ref = amf3_Is_U29S_ref(U29_raw)
-    s_Value_Len = amf3_Is_U29S_value(U29_raw)
-    vr['ref'] = s_Ref
-    vr['value'] = {}
-    vr['value']['len'] = s_Value_Len
+    vr['U29S-raw'] = U29_raw
+    vr['ref'] = amf3_Decode_U29S(U29_raw)['ref']
+    vr['value'] = amf3_Decode_U29S(U29_raw)['value']
     string = b''
     for i in range(0,s_Value_Len):
-        step = amf3_Get_UTF8_char(unhandled_Bytes)
+        step = amf3_Get_UTF8_char_Raw(unhandled_Bytes)
         unhandled_Bytes = step[0]
         string = string + step[1]
-    vr['value']['string'] = string
+    vr['string-raw'] = string
+    vr['string'] = string.decode('utf-8')
     return((unhandled_Bytes,vr))
 
 
-# U29O-ref = U29 ; The first (low) bit is a flag 
-# (representing whether an instance 
-# follows) with value 0 to imply that 
-# this is not an instance but a 
-# reference. The remaining 1 to 28 
-# significant bits are used to encode an
-# object reference index (an integer).
 
-def amf3_Is_U29O_ref(U29):
-    int_Little_Endian = U29[-1]
-    if(int_Little_Endian % 2 == 0):
-        return(amf3_U29_to_INT(U29) // 2)
-    else:
-        return(None)
+##-----------------------------------------------------------------##
+##                                                                 ##
+##-----------------------------------------------------------------##
 
-
-
-# U29D-value = U29 ; The first (low) bit is a flag with 
-# value 1. The remaining bits are not 
-# used.
-
-def amf3_Is_U29D_value(U29):
-    int_Little_Endian = U29[-1]
-    if(int_Little_Endian % 2 == 1):
-        return((amf3_U29_to_INT(U29)-1) // 2)
-    else:
-        return(None)
 
 
 
