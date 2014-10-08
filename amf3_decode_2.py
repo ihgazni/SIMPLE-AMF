@@ -8,7 +8,7 @@ import datetime
 
 # amf3_U8 :
 # An unsigned byte, 8-bits of data, an octet 
-def amf3_Get_U8(unhandled_Bytes):
+def amf3_Get_U8_raw(unhandled_Bytes):
     handled_Bytes = b''
     (unhandled_Bytes,U8_raw) = (unhandled_Bytes[1:],unhandled_Bytes[0:1])
     return((unhandled_Bytes,U8_raw))
