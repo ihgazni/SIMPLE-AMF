@@ -1,0 +1,47 @@
+def amf3_Get_U8_raw(unhandled_Bytes):
+def amf3_U8_to_INT(U8_raw):
+def amf3_INT_to_U8(INT):
+
+def amf3_Get_U16_raw(unhandled_Bytes):
+def amf3_U16_to_INT(U16_raw):
+def amf3_INT_to_U16(INT):
+
+def amf3_Get_U32_raw(unhandled_Bytes):
+def amf3_U32_to_INT(U32_raw):
+def amf3_INT_to_U32(INT):
+
+def amf3_Get_DOUBLE_raw(unhandled_Bytes):
+def amf3_DOUBLE_to_Float(DOUBLE_raw):
+def amf3_Get_Date_Time(DOUBLE_raw):
+
+amf3_MB = 1048576
+
+def amf3_Get_UTF8_char_Raw(unhandled_Bytes):
+def amf3_Get_UTF8_string_Len_Raw(unhandled_Bytes):
+def amf3_UTF8_string_Len(UTF8_string_Len_Raw):
+def amf3_Get_UTF8_string_Raw(unhandled_Bytes,UTF8_string_Len_Raw):
+def amf3_UTF8_String(UTF8_string_Raw):
+def amf3_Get_UTF8_raw(unhandled_Bytes):
+
+def amf3_Get_U29_raw(unhandled_Bytes):
+def amf3_U29_to_INT(U29_raw):
+def amf3_INT_to_U29(INT):
+def amf3_Decode_U29S(U29_raw):
+
+amf3_UTF_8_empty = b'\x01'
+
+def amf3_Get_UTF8_vr_Raw(unhandled_Bytes):
+
+def amf3_Get_Assoc_Value_Raw(unhandled_Bytes):
+
+def amf3_Decode_U29O(U29_raw):
+def amf3_Get_Dynamic_Member_Raw(unhandled_Bytes,amf3_Data_Types,U29O_traits_Ext_U8_count):
+def amf3_Get_Value_Type(unhandled_Bytes,amf3_Data_Types,U29O_traits_Ext_U8_count):
+def amf3_Get_Value_Type_Body(unhandled_Bytes,marker_Raw,amf3_Data_Types,U29O_traits_Ext_U8_count):
+
+
+
+
+
+
+
