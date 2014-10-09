@@ -1,0 +1,271 @@
+A. amf3_Bytes_File
+
+# more ./test_1.amf3
+
+lex.messaging.messages.CommandMessageoperation
+__e+a+i-+Id+e__ageIdc+ie++Id+i+eT-Li+e+i+e_+a+-headersde
+stination       bodyI50A43A42-6AB3-FA5B-0601-AA658F60C1F5
+
+       DSIdnil%DSMessagingVersion
+
+#
+
+B. bytes_Stream  of  amf3_Bytes_File
+
+>>> get_unhandled_Bytes('test_1.amf3')
+b'\n\x81\x13Mflex.messaging.messages.CommandMessage\x13operation\x1bcorrelationId\x13messageId\x11clientId\x15timeToLive\x13timestamp\x0fheaders\x17destination\tbody\x04\x05\x06\x01\x06I50A43A42-6AB3-FA5B-0601-AA658F60C1F5\x01\x04\x00\x04\x00\n\x0b\x01\tDSId\x06\x07nil%DSMessagingVersion\x04\x01\x01\x06\x01\n\x05\x01'
+>>>
+
+
+
+C.
+
+# python3 amf3_Decode.py "test_1.amf3" 0
+{
+    1: {
+        'marker': 'object-marker',
+        'marker-raw': b '\n',
+        'body': {
+            'traits-ext-U8s': None,
+            'ref': None,
+            'sealed-names': {
+                1: {
+                    'string-raw': b 'operation',
+                    'value': 9,
+                    'string': 'operation',
+                    'ref': None,
+                    'U29S-raw': b '\x13'
+                },
+                2: {
+                    'string-raw': b 'correlationId',
+                    'value': 13,
+                    'string': 'correlationId',
+                    'ref': None,
+                    'U29S-raw': b '\x1b'
+                },
+                3: {
+                    'string-raw': b 'messageId',
+                    'value': 9,
+                    'string': 'messageId',
+                    'ref': None,
+                    'U29S-raw': b '\x13'
+                },
+                4: {
+                    'string-raw': b 'clientId',
+                    'value': 8,
+                    'string': 'clientId',
+                    'ref': None,
+                    'U29S-raw': b '\x11'
+                },
+                5: {
+                    'string-raw': b 'timeToLive',
+                    'value': 10,
+                    'string': 'timeToLive',
+                    'ref': None,
+                    'U29S-raw': b '\x15'
+                },
+                6: {
+                    'string-raw': b 'timestamp',
+                    'value': 9,
+                    'string': 'timestamp',
+                    'ref': None,
+                    'U29S-raw': b '\x13'
+                },
+                7: {
+                    'string-raw': b 'headers',
+                    'value': 7,
+                    'string': 'headers',
+                    'ref': None,
+                    'U29S-raw': b '\x0f'
+                },
+                8: {
+                    'string-raw': b 'destination',
+                    'value': 11,
+                    'string': 'destination',
+                    'ref': None,
+                    'U29S-raw': b '\x17'
+                },
+                9: {
+                    'string-raw': b 'body',
+                    'value': 4,
+                    'string': 'body',
+                    'ref': None,
+                    'U29S-raw': b '\t'
+                }
+            },
+            'class-name': {
+                'string-raw': b 'flex.messaging.messages.CommandMessage',
+                'value': 38,
+                'string': 'flex.messaging.messages.CommandMessage',
+                'ref': None,
+                'U29S-raw': b 'M'
+            },
+            'U29-raw': b '\x81\x13',
+            'dynamic-members': None,
+            'traits-ref': None,
+            'traits': {
+                'dynamic': False,
+                'sealed-names-count': 9
+            },
+            'sealed-value-types': {
+                1: {
+                    'marker': 'integer-marker',
+                    'marker-raw': b '\x04',
+                    'body': {
+                        'INT': 5,
+                        'U29-raw': b '\x05'
+                    }
+                },
+                2: {
+                    'marker': 'string-marker',
+                    'marker-raw': b '\x06',
+                    'body': {
+                        'string-raw': b '',
+                        'value': 0,
+                        'string': '',
+                        'ref': None,
+                        'U29S-raw': b '\x01'
+                    }
+                },
+                3: {
+                    'marker': 'string-marker',
+                    'marker-raw': b '\x06',
+                    'body': {
+                        'string-raw': b '50A43A42-6AB3-FA5B-0601-AA658F60C1F5',
+                        'value': 36,
+                        'string': '50A43A42-6AB3-FA5B-0601-AA658F60C1F5',
+                        'ref': None,
+                        'U29S-raw': b 'I'
+                    }
+                },
+                4: {
+                    'marker': 'null-marker',
+                    'marker-raw': b '\x01',
+                    'body': b ''
+                },
+                5: {
+                    'marker': 'integer-marker',
+                    'marker-raw': b '\x04',
+                    'body': {
+                        'INT': 0,
+                        'U29-raw': b '\x00'
+                    }
+                },
+                6: {
+                    'marker': 'integer-marker',
+                    'marker-raw': b '\x04',
+                    'body': {
+                        'INT': 0,
+                        'U29-raw': b '\x00'
+                    }
+                },
+                7: {
+                    'marker': 'object-marker',
+                    'marker-raw': b '\n',
+                    'body': {
+                        'traits-ext-U8s': None,
+                        'ref': None,
+                        'sealed-names': {},
+                        'class-name': {
+                            'string-raw': b '',
+                            'value': 0,
+                            'string': '',
+                            'ref': None,
+                            'U29S-raw': b '\x01'
+                        },
+                        'U29-raw': b '\x0b',
+                        'dynamic-members': {
+                            1: {
+                                'body': {
+                                    'marker': 'string-marker',
+                                    'marker-raw': b '\x06',
+                                    'body': {
+                                        'string-raw': b 'nil',
+                                        'value': 3,
+                                        'string': 'nil',
+                                        'ref': None,
+                                        'U29S-raw': b '\x07'
+                                    }
+                                },
+                                'name': {
+                                    'string-raw': b 'DSId',
+                                    'value': 4,
+                                    'string': 'DSId',
+                                    'ref': None,
+                                    'U29S-raw': b '\t'
+                                }
+                            },
+                            2: {
+                                'body': {
+                                    'marker': 'integer-marker',
+                                    'marker-raw': b '\x04',
+                                    'body': {
+                                        'INT': 1,
+                                        'U29-raw': b '\x01'
+                                    }
+                                },
+                                'name': {
+                                    'string-raw': b 'DSMessagingVersion',
+                                    'value': 18,
+                                    'string': 'DSMessagingVersion',
+                                    'ref': None,
+                                    'U29S-raw': b '%'
+                                }
+                            },
+                            3: {
+                                'body': None,
+                                'name': {
+                                    'string-raw': b '',
+                                    'value': 0,
+                                    'string': '',
+                                    'ref': None,
+                                    'U29S-raw': b '\x01'
+                                }
+                            }
+                        },
+                        'traits-ref': None,
+                        'traits': {
+                            'dynamic': True,
+                            'sealed-names-count': 0
+                        },
+                        'sealed-value-types': {},
+                        'traits-ext': None
+                    }
+                },
+                8: {
+                    'marker': 'string-marker',
+                    'marker-raw': b '\x06',
+                    'body': {
+                        'string-raw': b '',
+                        'value': 0,
+                        'string': '',
+                        'ref': None,
+                        'U29S-raw': b '\x01'
+                    }
+                },
+                9: {
+                    'marker': 'object-marker',
+                    'marker-raw': b '\n',
+                    'body': {
+                        'traits-ext-U8s': None,
+                        'ref': None,
+                        'sealed-names': None,
+                        'class-name': None,
+                        'U29-raw': b '\x05',
+                        'dynamic-members': None,
+                        'traits-ref': 1,
+                        'traits': None,
+                        'sealed-value-types': None,
+                        'traits-ext': None
+                    }
+                }
+            },
+            'traits-ext': None
+        }
+    },
+    2: {
+        'marker': 'null-marker',
+        'marker-raw': b '\x01',
+        'body': b ''
+    }
+}
